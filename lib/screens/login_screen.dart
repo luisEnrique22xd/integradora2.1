@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
 
   //sign user in method
   void signUserIn(){
-
+    
   }
 
   @override
@@ -81,6 +81,7 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.blue,
                   fontWeight: FontWeight.bold,
+                  
                 ),)
               ],
              )
