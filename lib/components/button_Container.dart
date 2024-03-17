@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:integradora2_1/screens/home_screen.dart';
 
-class Mybutton extends StatelessWidget {
+class MybuttonContainer extends StatelessWidget {
 
   final Function()? onTap;
-  const Mybutton({super.key, required this.onTap});
+  const MybuttonContainer({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,11 @@ class Mybutton extends StatelessWidget {
                 },
       child: Container(
         padding: const EdgeInsets.all(15),//tamaño del boton vertical
-        margin: const EdgeInsets.symmetric(horizontal: 135),//tamaño del boton horizontal
+        margin: const EdgeInsets.symmetric(horizontal: 120),//tamaño del boton horizontal
         decoration:  BoxDecoration(color: Colors.blue,
         borderRadius: BorderRadius.circular(25)),//border
         child: const Center(
-          child: Text('Sign In',
+          child: Text('Add Container',
           style: TextStyle(color: Colors.white,
           fontWeight: FontWeight.bold),),
           ),

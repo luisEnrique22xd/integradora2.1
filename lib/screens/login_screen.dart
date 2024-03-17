@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:integradora2_1/components/button.dart';
 import 'package:integradora2_1/components/text_fields.dart';
+import 'package:integradora2_1/screens/register_now.dart';
 import 'package:integradora2_1/themes/app_theme.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -17,21 +19,16 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
       backgroundColor: AppTheme.backColor,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column( 
           children: [
-           const SizedBox(
-              //img size
-              height: 300.0,
-              width: 300.0,
-              child:
-               Image(
-                image: AssetImage('assets/img/logoWC.png')//logo
-                )
-            ),
+               const Image(
+                image: AssetImage('assets/img/logoWC.png'),
+                width: 300,//logo5
+                height: 300,
+                ),
             space(),
            const Text('Welcome back to WaterCare',//title
             style: TextStyle(fontSize: 18.0,
@@ -61,7 +58,8 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text('Fogot password?',
-                  style: TextStyle(fontSize: 13.0),
+                  style: TextStyle(fontSize: 13.0,
+                  fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -72,17 +70,28 @@ class LoginScreen extends StatelessWidget {
 
              const SizedBox(height: 20,),
 
-             const Row(
+              Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Not an user?'),
-                 SizedBox(width: 4,),
-                Text('Register now',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  
-                ),)
+                const Text('Not an user?',), 
+                const SizedBox(width: 4,),
+                GestureDetector(
+                      child: const Text(
+                        'Register Now',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline, // Add underlining for emphasis
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const RegisterNow()),
+                        );
+                      },
+                    ),
+                
               ],
              )
 
@@ -92,5 +101,5 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  SizedBox space() => const SizedBox(height: 25,);
+  SizedBox space() => const SizedBox(height: 5,);
 } 

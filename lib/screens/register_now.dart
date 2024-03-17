@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:integradora2_1/components/button.dart';
+import 'package:integradora2_1/components/button_register.dart';
 import 'package:integradora2_1/components/text_fields.dart';
+import 'package:integradora2_1/screens/login_screen.dart';
 
 class RegisterNow extends StatelessWidget {
   const RegisterNow({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
           children: [
-             SizedBox(
+            const SizedBox(
               //img size
               height: 250.0,
               width: 200.0,
@@ -21,34 +22,59 @@ class RegisterNow extends StatelessWidget {
                 image: AssetImage('assets/img/logoWC.png')//logo
                 )
             ),
-            Text("Welcome to Water Care ",
+            const Text("Welcome to Water Care ",
             style: TextStyle(fontSize: 18.0,
             fontWeight: FontWeight.bold,
             color: Colors.black,
             )
             ),
-             SizedBox(
+             const SizedBox(
               height: 25.0,
             ),
-            MyTextField(
+            const MyTextField(
               controller: null,
               hintText: "Name",
               obscureText: false,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
-            MyTextField(controller: null, hintText: 'Last Name', obscureText: false),
-            SizedBox(height: 15.0,),
-            MyTextField(controller: null, hintText: 'Password', obscureText: true),
-            SizedBox(
+            const MyTextField(controller: null, hintText: 'Last Name', obscureText: false),
+            const SizedBox(height: 15.0,),
+            const MyTextField(controller: null, hintText: 'Password', obscureText: true),
+            const SizedBox(
               height: 15.0,
             ),
-            MyTextField(controller: null, hintText: 'Phone', obscureText: false),
-            SizedBox(height: 15.0,),
-            MyTextField(controller: null, hintText: 'Address', obscureText: false),
-            SizedBox(height: 25.0,),
-            Mybutton(onTap: null),
+           const  MyTextField(controller: null, hintText: 'Phone', obscureText: false),
+           const  SizedBox(height: 15.0,),
+            const MyTextField(controller: null, hintText: 'Address', obscureText: false),
+            const SizedBox(height: 25.0,),
+           const  MybuttonR(onTap: null),
+           const SizedBox(height: 10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Are you an user?'),
+                 const SizedBox(width: 5.0,),
+                 GestureDetector(
+                      child: const Text(
+                         'Log in',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline, // Add underlining for emphasis
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  LoginScreen()),
+                        );
+                      },
+                    ),
+               
+              ],
+            ),
           ],
         ),
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:integradora2_1/screens/login_screen.dart';
-import 'package:integradora2_1/screens/register_now.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
