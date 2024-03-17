@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:integradora2_1/screens/add_container_screen.dart';
+import 'package:integradora2_1/components/button_add_account.dart';
+import 'package:integradora2_1/components/button_delete_account.dart';
+import 'package:integradora2_1/components/button_edit_account.dart';
 import 'package:integradora2_1/screens/comments_screen.dart';
+import 'package:integradora2_1/screens/home_screen.dart';
 import 'package:integradora2_1/screens/login_screen.dart';
-import 'package:integradora2_1/screens/profile_screen.dart';
 import 'package:integradora2_1/screens/reports_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  int indexNavigation = 0 ;
+class _ProfileScreenState extends State<ProfileScreen> {
+  int indexNavigation = 3 ;
 
   openScreen(int index, BuildContext context){//variable buildcontext puede que no la pida pero es mejor enviarla
   MaterialPageRoute ruta = MaterialPageRoute( // variable para la ruta
@@ -41,17 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(context, ruta);
   });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Water Care'),
+        title:const Text('Profile')
       ),
-      body:  Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      body: Column(
         children: [
-           Row(
+          Row(
              children: [
                const Image(
                     image: AssetImage('assets/img/logoWC.png'),
@@ -86,37 +86,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
              ],
            ),//head
-          const Divider(),
-          const Text('List of containers: ',
-          style: TextStyle(fontWeight: FontWeight.bold,
-          fontSize: 25.0,
-          ),
-          ),
-          const SizedBox(height: 420.0),
-          
-          GestureDetector(
-                          onTap:() {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AddContainer()),
-                                    );
-                                    },
-                          child: Container(
-                            padding: const EdgeInsets.all(10),//tamaño del boton vertical
-                            margin: const EdgeInsets.symmetric(horizontal: 115),//tamaño del boton horizontal
-                            decoration:  BoxDecoration(color: Colors.blue,
-                            borderRadius: BorderRadius.circular(25)),//border
-                            child: const Center(
-                              child: Text(' add container ',
-                              style: TextStyle(color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.0),
-                              ),
-                              ),
-                          ),
-                        ),
-
+           const Divider(),
+           const Text('Usuario'),
+          const Row(
+            children: [
+              Text('Imagen'),
+              SizedBox(width:190.0),
+              Text('Datos personales')
+            ],
+           ),
+           const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              MybuttonEditAcc(onTap: null),
+              MybuttonDeleteAcc(onTap: null)
+            ],
+            ),
+            const SizedBox(height: 25),
+            const MybuttonAddAcc(onTap: null)
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+       bottomNavigationBar: BottomNavigationBar(
           currentIndex: indexNavigation,
           backgroundColor: Colors.lightBlue,
           unselectedItemColor: Colors.blue[100],
