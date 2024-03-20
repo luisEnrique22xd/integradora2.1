@@ -10,7 +10,8 @@ class RegisterNow extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
+      body: SingleChildScrollView(
+        child: Center(
         child: Column(
           children: [
             const SizedBox(
@@ -78,6 +79,7 @@ class RegisterNow extends StatelessWidget {
           ],
         ),
       ),
+      )
     );
   }
 }

@@ -16,7 +16,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   openScreen(int index, BuildContext context){//variable buildcontext puede que no la pida pero es mejor enviarla
   MaterialPageRoute ruta = MaterialPageRoute( // variable para la ruta
-    builder: (context) => const HomeScreen());
+    builder: (context) =>  const HomeScreen());
   switch(index){
     case 0: 
       ruta = MaterialPageRoute( // variable para la ruta
@@ -48,7 +48,12 @@ class _ReportsScreenState extends State<ReportsScreen> {
       ),
       body:const Column(
         children: [
-          Text('Here create your reports: '),
+          Text('Here create your reports: ',
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.bold,
+          ),),
+          Divider(),
           SizedBox(height: 15.0,),
           MybuttonReport(onTap: null)
         ],

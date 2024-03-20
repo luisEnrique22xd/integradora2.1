@@ -1,12 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:integradora2_1/screens/add_container_screen.dart';
 import 'package:integradora2_1/screens/comments_screen.dart';
-import 'package:integradora2_1/screens/login_screen.dart';
 import 'package:integradora2_1/screens/profile_screen.dart';
 import 'package:integradora2_1/screens/reports_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+    const HomeScreen({super.key});
+  
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   openScreen(int index, BuildContext context){//variable buildcontext puede que no la pida pero es mejor enviarla
   MaterialPageRoute ruta = MaterialPageRoute( // variable para la ruta
-    builder: (context) => const HomeScreen());
+    builder: (context) => const  HomeScreen());
   switch(index){
     case 0: 
       ruta = MaterialPageRoute( // variable para la ruta
@@ -41,46 +42,56 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(context, ruta);
   });
   }
+  final user = FirebaseAuth.instance.currentUser;
+  
+  //sign user out method
+  void signUserOut(){
+    FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Water Care'),
+        actions: [
+          IconButton(onPressed: signUserOut, icon:const  Icon(Icons.logout))
+        ],
       ),
       body:  Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-           Row(
+           const Row(
              children: [
-               const Image(
+                Image(
                     image: AssetImage('assets/img/logoWC.png'),
                     width: 100,//logo5
                     height: 120,
                     ),
-                    const SizedBox(width: 170.5),
-                    Column(
+                     SizedBox(width: 170.5),
+                     Column(
                       children: [
-                        GestureDetector(
-                          onTap:() {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoginScreen()),
-                                    );
-                                    },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),//tamaño del boton vertical
-                            margin: const EdgeInsets.symmetric(horizontal: 15),//tamaño del boton horizontal
-                            decoration:  BoxDecoration(color: Colors.blue,
-                            borderRadius: BorderRadius.circular(25)),//border
-                            child: const Center(
-                              child: Text('Log out',
-                              style: TextStyle(color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.0
-                              ),
-                              ),
-                              ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap:() {
+                        //             Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoginScreen()),
+                        //             );
+                        //             },
+                        //   child: Container(
+                        //     padding: const EdgeInsets.all(5),//tamaño del boton vertical
+                        //     margin: const EdgeInsets.symmetric(horizontal: 15),//tamaño del boton horizontal
+                        //     decoration:  BoxDecoration(color: Colors.blue,
+                        //     borderRadius: BorderRadius.circular(25)),//border
+                        //     child: const Center(
+                        //       child: Text('Log out',
+                        //       style: TextStyle(color: Colors.white,
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: 14.0
+                        //       ),
+                        //       ),
+                        //       ),
+                        //   ),
+                        // ),
+                        
                         
                       ],
                     )
@@ -92,6 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
           fontSize: 25.0,
           ),
           ),
+           user != null ? Text('Logged in as: ${user?.email}') : const Text('Not logged in'),
+
           const SizedBox(height: 420.0),
           
           GestureDetector(

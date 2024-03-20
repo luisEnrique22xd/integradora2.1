@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   switch(index){
     case 0: 
       ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) => const HomeScreen());
+      builder: (context) =>  const HomeScreen());
       break;
     case 1: 
       ruta = MaterialPageRoute( // variable para la ruta
@@ -87,7 +87,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
              ],
            ),//head
            const Divider(),
-           const Text('Usuario'),
+           const Text('Usuario', 
+           style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.bold
+           ),),
           const Row(
             children: [
               Text('Imagen'),

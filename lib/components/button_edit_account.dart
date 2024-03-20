@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:integradora2_1/screens/home_screen.dart';
+import 'package:integradora2_1/screens/edit_profile.dart';
 
 class MybuttonEditAcc extends StatelessWidget {
 
@@ -11,7 +11,7 @@ class MybuttonEditAcc extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap:() {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()),
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProfile()),
                 );
                 },
       child: Container(

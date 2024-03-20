@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:integradora2_1/screens/login_screen.dart';
-
+import 'package:integradora2_1/screens/auth_page.dart';
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return  const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: AuthPage(),
       //home:  RegisterNow(),
     );
   }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608237155140",
+    "project_id": "smiccat-f890c",
+    "storage_bucket": "smiccat-f890c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608237155140:android:95251113840d307846dd11",
+        "android_client_info": {
+          "package_name": "com.example.integradora2_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxa7zC_XQ7v8mL7fxENc-kJwchcqnwB9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

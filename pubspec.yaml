@@ -7,8 +7,11 @@ environment:
   sdk: '>=3.2.6 <4.0.0'
 
 dependencies:
+  firebase_auth: ^4.17.8
+  firebase_core: ^2.27.0
   flutter:
     sdk: flutter
+  flutter_dropdown: ^1.0.1+hotfix.1
   google_fonts: 6.1.0
   
 
