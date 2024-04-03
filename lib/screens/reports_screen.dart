@@ -16,11 +16,11 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   openScreen(int index, BuildContext context){//variable buildcontext puede que no la pida pero es mejor enviarla
   MaterialPageRoute ruta = MaterialPageRoute( // variable para la ruta
-    builder: (context) =>  const HomeScreen());
+    builder: (context) =>   HomeScreen());
   switch(index){
     case 0: 
       ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) => const HomeScreen());
+      builder: (context) =>  HomeScreen());
       break;
     case 1: 
       ruta = MaterialPageRoute( // variable para la ruta

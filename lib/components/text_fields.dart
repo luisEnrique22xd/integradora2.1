@@ -13,7 +13,13 @@ class MyTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
-              child: TextField(
+              child: TextFormField(
+                validator:  (value){
+                  if(value == null || value.isEmpty){
+                    return "Please enter ";
+                  }
+                  return null;
+                } ,
                 controller: controller,
                 obscureText: obscureText,
 

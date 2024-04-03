@@ -2,34 +2,31 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:integradora2_1/components/button.dart';
 import 'package:integradora2_1/components/text_fields.dart';
+import 'package:integradora2_1/screens/home_screen.dart';
 import 'package:integradora2_1/screens/register_now.dart';
 import 'package:integradora2_1/themes/app_theme.dart';
 
-class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key,});
+class LoginScreen extends StatefulWidget {
+   const LoginScreen({super.key,});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   //text editing controllers
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final bool obscureText = false;
+  TextEditingController mailcontroller = new TextEditingController();
+  TextEditingController passwordcontroller= new TextEditingController();
 
-  //sign user in method
-  Future<void> signUserIn() async {
+  Future<void> login() async{//metodo para la validacion de usuarios 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      // Navegar a la pantalla de inicio o mostrar mensaje de éxito
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No se encontró ningún usuario para el correo electrónico proporcionado.');
-        // Mostrar mensaje de error al usuario (por ejemplo, "Correo electrónico o contraseña inválidos")
-      } else if (e.code == 'wrong-password') {
-        print('Se proporcionó una contraseña incorrecta para el correo electrónico.');
-        // Mostrar mensaje de error al usuario (por ejemplo, "Correo electrónico o contraseña inválidos")
-      } else {
-        print(e.code); // Registrar otros errores para depuración
-      }
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: mailcontroller.text, password: passwordcontroller.text,);
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>   HomeScreen()),);
+    }on FirebaseAuthException catch (e){
+      print(e.code);
+      print(e.message);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error al iniciar sesion: ${e.message}")));
     }
   }
 
@@ -57,19 +54,59 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 25),
 
           // Username field
-          MyTextField(
-            controller: emailController,
-            hintText: "Username",
-            obscureText: false,
-          ),
+          
           const SizedBox(height: 25),
 
           // Password textfield
-          MyTextField(
-            controller: passwordController,
-            hintText: "Password",
-            obscureText: true,
-          ),
+          Container(
+              padding: const EdgeInsets.symmetric(horizontal:30.0),
+              child: TextFormField(
+                controller: mailcontroller,
+                validator:  (value){
+                  if(value == null || value.isEmpty){
+                    return "Please enter username";
+                  }
+                  return null;
+                } ,
+                decoration:   InputDecoration(
+                  enabledBorder:  OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue)
+                    ),
+                    fillColor: Colors.blue[100],
+                    filled: true,
+                    hintText: "Username",
+                ),
+              ),
+            ),
+            const SizedBox(height: 15.0,),
+          Container(padding: const EdgeInsets.symmetric(horizontal:30.0),
+              child: TextFormField(
+                controller:  passwordcontroller,
+                validator:  (value){
+                  if(value == null || value.isEmpty){
+                    return "Please enter password";
+                  }
+                  return null;
+                } ,
+                obscureText: true,
+                decoration:   InputDecoration(
+                  enabledBorder:  OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue)
+                    ),
+                    fillColor: Colors.blue[100],
+                    filled: true,
+                    hintText: "Password",
+                    
+                ),
+              ),),
           const SizedBox(height: 10),
 
           // Forgot password?
@@ -88,7 +125,21 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 15),
 
           // Sign button
-          Mybutton(onTap: signUserIn),
+          GestureDetector(
+      onTap:() {login(); //metodo 
+      },
+      child: Container(
+        padding: const EdgeInsets.all(15),//tamaño del boton vertical
+        margin: const EdgeInsets.symmetric(horizontal: 135),//tamaño del boton horizontal
+        decoration:  BoxDecoration(color: Colors.blue,
+        borderRadius: BorderRadius.circular(25)),//border
+        child: const Center(
+          child: Text('Login in',
+          style: TextStyle(color: Colors.white,
+          fontWeight: FontWeight.bold),),
+          ),
+      ),
+    ),
 
           const SizedBox(height: 20),
 
