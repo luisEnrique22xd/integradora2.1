@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:integradora2_1/screens/add_container_screen.dart';
 import 'package:integradora2_1/screens/comments_screen.dart';
+import 'package:integradora2_1/screens/details_container_screen.dart';
+import 'package:integradora2_1/screens/details_container_screen.dart';
 import 'package:integradora2_1/screens/login_screen.dart';
 import 'package:integradora2_1/screens/profile_screen.dart';
 import 'package:integradora2_1/screens/reports_screen.dart';
@@ -57,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
               final docs = snapshot.data!.docs;
-              ;
+              
       return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -65,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                    Image(
                     image: AssetImage('assets/img/logoWC.png'),
-                    width: 100,
+                    width: 349.5,
                     height: 120,
                   ),
                    SizedBox(width: 10.5),
@@ -85,8 +87,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context,index){
                   final contenedor = docs[index].data() as Map<String, dynamic>;
                   return ListTile(
-                    title: Text(contenedor['capacidad'].toString()),
-                    subtitle: Text(contenedor['condicion']),
+                    title: Text(contenedor['name'] != null ? "Name: " + contenedor['name'] : ''),
+                    subtitle: Text(contenedor['capacity'] != null ? "Capacity: " + contenedor['capacity'].toString()+"Lts.": ''),
+                    trailing: IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child: const Icon(Icons.arrow_forward_ios),),
+                    leading: IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child: const Icon(Icons.water_damage_outlined)),
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsContainer()), );
+                    },
                   );
                 },
                 )

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:integradora2_1/components/button_comment.dart';
 import 'package:integradora2_1/components/text_area.dart';
@@ -15,7 +16,7 @@ class CommentsScreen extends StatefulWidget {
 
 class _CommentsScreenState extends State<CommentsScreen> {
   int indexNavigation = 1 ;
-  final TextEditingController  capacityController = TextEditingController();
+  final TextEditingController  commentcontroller = TextEditingController();
 
   openScreen(int index, BuildContext context){//variable buildcontext puede que no la pida pero es mejor enviarla
   MaterialPageRoute ruta = MaterialPageRoute( // variable para la ruta
@@ -45,6 +46,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Comentarios'),
@@ -52,64 +54,92 @@ class _CommentsScreenState extends State<CommentsScreen> {
       body:  Column(
         children: [
           Text('here send your comments'),
-          MyTextFieldArea(controller: null, hintText: "Comment", obscureText: false),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal:30.0),
+              child: TextField(
+                maxLines: 5,
+                controller: commentcontroller,
+                obscureText: false,
+
+                decoration:   InputDecoration(
+                  enabledBorder:  OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue)
+                    ),
+                    fillColor: Colors.blue[100],
+                    filled: true,
+                    hintText: "Comment",
+                ),
+              ),
+            ),
           SizedBox(height: 15.0),
-          MybuttonComment(
-            onTap: null,
-      //       onTap: () async {
-      //   // 1. Validación de entrada (opcional)
-      //   if (commentcontroller.text.isEmpty) {
-      //     ScaffoldMessenger.of(context).showSnackBar(
-      //       SnackBar(
-      //         content: Text('Por favor, rellena todos los campos.'),
-      //       ),
-      //     );
-      //     return; // Prevenir la ejecución posterior si la validación falla
-      //   }
+          GestureDetector(
+            onTap: () async {
+              print(commentcontroller);
+              if (commentcontroller.text.isEmpty){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Llena todos los campos'),
+            ),
+          );
+          return ;
+        }
+        // 3. Agregar datos a Firestore con manejo de errores
+        try {
+          // 2. Extract values and create data map
+    final user = FirebaseAuth.instance.currentUser!;
+    final comentarios = {
+      'usuario': user.email,
+      'comentario': commentcontroller.text,
+    };
+          await FirebaseFirestore.instance.collection('comentarios').add(comentarios);
+          // Mostrar mensaje de éxito (opcional)
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Comentario enviado correctamente!'),
+            ),
+          );
+        } on FirebaseException catch (e) {
+          // Manejar excepciones específicas de Firestore
+          print(e.code);
+          print(e.message);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error al enviar tu comentario: ${e.message}'),
+            ),
+          );
+        } catch (e) {
+          // Manejar otras excepciones (por ejemplo, errores de red)
+          print(e.toString());
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Se ha producido un error. Inténtalo de nuevo.'),
+            ),
+          );
+        } finally {
+          // Siempre ejecutar este bloque, incluso si se producen excepciones
+          // (por ejemplo, restablecer elementos de la interfaz de usuario)
+          commentcontroller.text = '';
+        }
 
-      //   // 2. Extraer valores de texto y crear mapa de datos
-      //   final String comment = commentcontroller.text;
-      //   final comentarios = {
-      //     'usuario': user.email,
-      //     'comentario': comment,
-      //   };
-
-      //   // 3. Agregar datos a Firestore con manejo de errores
-      //   try {
-      //     await FirebaseFirestore.instance.collection('contenedores').add(comentarios);
-      //     // Mostrar mensaje de éxito (opcional)
-      //     ScaffoldMessenger.of(context).showSnackBar(
-      //       SnackBar(
-      //         content: Text('Contenedor añadido correctamente!'),
-      //       ),
-      //     );
-      //   } on FirebaseException catch (e) {
-      //     // Manejar excepciones específicas de Firestore
-      //     print(e.code);
-      //     print(e.message);
-      //     ScaffoldMessenger.of(context).showSnackBar(
-      //       SnackBar(
-      //         content: Text('Error al añadir contenedor: ${e.message}'),
-      //       ),
-      //     );
-      //   } catch (e) {
-      //     // Manejar otras excepciones (por ejemplo, errores de red)
-      //     print(e.toString());
-      //     ScaffoldMessenger.of(context).showSnackBar(
-      //       SnackBar(
-      //         content: Text('Se ha producido un error. Inténtalo de nuevo.'),
-      //       ),
-      //     );
-      //   } finally {
-      //     // Siempre ejecutar este bloque, incluso si se producen excepciones
-      //     // (por ejemplo, restablecer elementos de la interfaz de usuario)
-      //     commentcontroller.text = '';
-      //   }
-
-      //   // 4. Navegar a la pantalla de inicio (opcional)
-      //  Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeScreen()),
-      //           );
-      // },
+        // 4. Navegar a la pantalla de inicio (opcional)
+       Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeScreen()),
+                );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(15),//tamaño del boton vertical
+        margin: const EdgeInsets.symmetric(horizontal: 120),//tamaño del boton horizontal
+        decoration:  BoxDecoration(color: Colors.blue,
+        borderRadius: BorderRadius.circular(25)),//border
+        child: const Center(
+          child: Text('Save comment',
+          style: TextStyle(color: Colors.white,
+          fontWeight: FontWeight.bold),),
+          ),
+      ),
       ),
         ],
       ),

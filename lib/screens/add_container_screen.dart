@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class AddContainer extends StatefulWidget {
 }
 
 class _AddContainerState extends State<AddContainer> {
+  final TextEditingController  nameController= TextEditingController();
   final TextEditingController  capacityController = TextEditingController();
   final TextEditingController  conditionController = TextEditingController();
   final TextEditingController  brandController = TextEditingController();
@@ -37,6 +40,16 @@ class _AddContainerState extends State<AddContainer> {
           style: TextStyle(fontSize: 22.5,
           fontWeight: FontWeight.bold),),
            const SizedBox(height: 15.0),
+           MyTextFieldOptions(controller: nameController, hintText: 'Name',keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+            icon: const Icon(Icons.arrow_drop_down),
+            onPressed: () {
+           // Mostrar la lista de sugerencias
+              },
+          )
+          ),),
+          SizedBox(height: 15,),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
               child: TextField(
@@ -90,7 +103,7 @@ class _AddContainerState extends State<AddContainer> {
           GestureDetector(
         onTap: () async {
         // 1. Validación de entrada (opcional)
-        if (capacityController.text.isEmpty ||
+        if (nameController.text.isEmpty || capacityController.text.isEmpty ||
             conditionController.text.isEmpty ||
             brandController.text.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -105,10 +118,12 @@ class _AddContainerState extends State<AddContainer> {
         final int capacity = int.parse(capacityController.text);
         final String condition = conditionController.text;
         final String brand = brandController.text;
+        final String name = nameController.text;
         final contenedor = {
-          'capacidad': capacity,
-          'condicion': condition,
-          'marca': brand,
+          'capacity': capacity,
+          'condition': condition,
+          'brand': brand,
+          'name': name
         };
 
         // 3. Agregar datos a Firestore con manejo de errores
@@ -143,6 +158,7 @@ class _AddContainerState extends State<AddContainer> {
           capacityController.text = '';
           conditionController.text = '';
           brandController.text = '';
+          nameController.text = '';
         }
 
         // 4. Navegar a la pantalla de inicio (opcional)

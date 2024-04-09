@@ -11,11 +11,12 @@ class MyTextFieldArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController  commentcontroller = TextEditingController();
     return Padding(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
               child: TextField(
                 maxLines: 5,
-                controller: controller,
+                controller: commentcontroller,
                 obscureText: obscureText,
 
                 decoration:   InputDecoration(
