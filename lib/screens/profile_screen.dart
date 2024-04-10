@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:integradora2_1/components/button_add_account.dart';
 import 'package:integradora2_1/components/button_delete_account.dart';
-import 'package:integradora2_1/components/button_edit_account.dart';
 import 'package:integradora2_1/screens/comments_screen.dart';
 import 'package:integradora2_1/screens/home_screen.dart';
 import 'package:integradora2_1/screens/login_screen.dart';
@@ -102,7 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
            const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              MybuttonEditAcc(onTap: null),
+              
               MybuttonDeleteAcc(onTap: null)
             ],
             ),
