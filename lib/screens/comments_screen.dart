@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:integradora2_1/components/button_comment.dart';
-import 'package:integradora2_1/components/text_area.dart';
 import 'package:integradora2_1/screens/home_screen.dart';
-import 'package:integradora2_1/screens/profile_screen.dart';
 import 'package:integradora2_1/screens/reports_screen.dart';
 
 class CommentsScreen extends StatefulWidget {
@@ -15,45 +12,43 @@ class CommentsScreen extends StatefulWidget {
 }
 
 class _CommentsScreenState extends State<CommentsScreen> {
-  int indexNavigation = 1 ;
+  final user = FirebaseAuth.instance.currentUser!;
+  int indexNavigation = 2 ;
   final TextEditingController  commentcontroller = TextEditingController();
 
-  openScreen(int index, BuildContext context){//variable buildcontext puede que no la pida pero es mejor enviarla
-  MaterialPageRoute ruta = MaterialPageRoute( // variable para la ruta
-    builder: (context) =>   HomeScreen());
-  switch(index){
-    case 0: 
-      ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) =>   HomeScreen());
-      break;
-    case 1: 
-      ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) => const CommentsScreen());  
-      break;
-    case 2:
-      ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) => const ReportsScreen());
-      break;
-    case 3: 
-      ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) => const ProfileScreen());    
-      break;
-  }
-  setState(() {
-    indexNavigation = index; 
-    Navigator.push(context, ruta);
-  });
+  void openScreen(int index, BuildContext context) {
+    switch (index) {
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>  const HomeScreen()));
+        break;
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportsScreen()));
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsScreen()));
+        break;
+    }
   }
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Comentarios'),
+        title: const Text('Comentarios', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+        automaticallyImplyLeading: false,
       ),
       body:  Column(
         children: [
-          Text('here send your comments'),
+          const Image(
+                    image: AssetImage('assets/img/logoWC.png'),
+                    width: 100,//logo5
+                    height: 120,
+                    ),
+          Text('Send you comments!',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+          SizedBox(height: 15,),
+          Text('Usuario: '+ user.email!, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+          SizedBox(height: 15,),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
               child: TextField(
@@ -144,29 +139,19 @@ class _CommentsScreenState extends State<CommentsScreen> {
         ],
       ),
        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: indexNavigation,
-          backgroundColor: Colors.lightBlue,
-          unselectedItemColor: Colors.blue[100],
-          selectedItemColor: Colors.blue,
-          onTap: (index)=> openScreen(index, context),//para ver en que ventana estoy // openScreen metodo es para las rutas
-          items: const[
-          BottomNavigationBarItem(icon: Icon(Icons.home),
-          label: "Home",
-          ),
-          BottomNavigationBarItem(
-          icon: Icon(Icons.comment),
-          label: "Comments",
-          ),
-          BottomNavigationBarItem(
-          icon: Icon(Icons.picture_as_pdf),
-          label: "Reports",
-          ),
-          BottomNavigationBarItem(
-          icon: Icon(Icons.person_sharp),
-          label: "Profile",
-          ),
-          ]
-          ),
+        currentIndex: 2, // Set initial selected index (optional)
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        unselectedItemColor: Colors.blue[100],
+        selectedItemColor: Colors.blue,
+        onTap: (index) => openScreen(index, context),
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: true  ,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.picture_as_pdf), label: "Reports"),
+          BottomNavigationBarItem(icon: Icon(Icons.person_pin_rounded), label: "Profile/Comments"),
+        ],
+      ),
     );
   }
 }

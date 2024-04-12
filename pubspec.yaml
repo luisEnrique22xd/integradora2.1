@@ -14,7 +14,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_dropdown: ^1.0.1+hotfix.1
+  gauges: ^1.0.0
   google_fonts: 6.1.0
+  syncfusion_flutter_gauges: ^25.1.39
   
 
 dev_dependencies:

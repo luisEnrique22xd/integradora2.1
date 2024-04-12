@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:integradora2_1/components/button_report.dart';
 import 'package:integradora2_1/screens/comments_screen.dart';
 import 'package:integradora2_1/screens/home_screen.dart';
-import 'package:integradora2_1/screens/profile_screen.dart';
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -12,77 +11,77 @@ class ReportsScreen extends StatefulWidget {
 }
 
 class _ReportsScreenState extends State<ReportsScreen> {
-  int indexNavigation = 2 ;
+  int indexNavigation = 1 ;
 
-  openScreen(int index, BuildContext context){//variable buildcontext puede que no la pida pero es mejor enviarla
-  MaterialPageRoute ruta = MaterialPageRoute( // variable para la ruta
-    builder: (context) =>   HomeScreen());
-  switch(index){
-    case 0: 
-      ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) =>  HomeScreen());
-      break;
-    case 1: 
-      ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) => const CommentsScreen());  
-      break;
-    case 2:
-      ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) => const ReportsScreen());
-      break;
-    case 3: 
-      ruta = MaterialPageRoute( // variable para la ruta
-      builder: (context) => const ProfileScreen());    
-      break;
-  }
-  setState(() {
-    indexNavigation = index; 
-    Navigator.push(context, ruta);
-  });
+  void openScreen(int index, BuildContext context) {
+    switch (index) {
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>  const HomeScreen()));
+        break;
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportsScreen()));
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsScreen()));
+        break;
+    }
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reports'),
+        title: const Text('Reports', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+        automaticallyImplyLeading: false,
       ),
-      body:const Column(
+      body: Column(
         children: [
-          Text('Here create your reports: ',
+          const Text('Here create your reports: ',
           style: TextStyle(
-            fontSize: 15.0,
+            fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),),
-          Divider(),
-          SizedBox(height: 15.0,),
-          MybuttonReport(onTap: null)
+          const Divider(),
+          const SizedBox(height: 15.0,),
+          const MybuttonReport(onTap: null),
+          const SizedBox(height: 15,),
+          const Text('Reports List', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+          const SizedBox(height: 15,),
+          const Divider(),
+          Expanded(child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: //docs.length
+                4,
+                itemBuilder: (context,index){
+                  // final contenedor = docs[index].data() as Map<String, dynamic>;
+                  return const ListTile(
+                    title: //Text(contenedor['name'] != null ? "Name: " + contenedor['name'] : ''),
+                    Text('Reporte: '),
+                    subtitle: //Text(contenedor['capacity'] != null ? "Capacity: " + contenedor['capacity'].toString()+"Lts.": ''),
+                    Text('Fecha: '),
+                    trailing: IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child:  Icon(Icons.arrow_forward_ios),),
+                    leading: IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child:  Icon(Icons.picture_as_pdf)),
+                  );
+                },
+                )
+                ),
+          const Divider()
         ],
 
       ),
        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: indexNavigation,
-          backgroundColor: Colors.lightBlue,
-          unselectedItemColor: Colors.blue[100],
-          selectedItemColor: Colors.blue,
-          onTap: (index)=> openScreen(index, context),//para ver en que ventana estoy // openScreen metodo es para las rutas
-          items: const[
-          BottomNavigationBarItem(icon: Icon(Icons.home),
-          label: "Home",
-          ),
-          BottomNavigationBarItem(
-          icon: Icon(Icons.comment),
-          label: "Comments",
-          ),
-          BottomNavigationBarItem(
-          icon: Icon(Icons.picture_as_pdf),
-          label: "Reports",
-          ),
-          BottomNavigationBarItem(
-          icon: Icon(Icons.person_sharp),
-          label: "Profile",
-          ),
-          ]
-          ),
+        currentIndex: 1, // Set initial selected index (optional)
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        unselectedItemColor: Colors.blue[100],
+        selectedItemColor: Colors.blue,
+        onTap: (index) => openScreen(index, context),
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: true  ,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.picture_as_pdf), label: "Reports"),
+          BottomNavigationBarItem(icon: Icon(Icons.person_pin_rounded), label: "Profile/Comments"),
+        ],
+      ),
     );
   }
 }

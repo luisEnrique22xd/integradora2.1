@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:integradora2_1/components/button.dart';
-import 'package:integradora2_1/components/text_fields.dart';
 import 'package:integradora2_1/screens/home_screen.dart';
 import 'package:integradora2_1/screens/register_now.dart';
 import 'package:integradora2_1/themes/app_theme.dart';
@@ -16,17 +14,15 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   //text editing controllers
   final bool obscureText = false;
-  TextEditingController mailcontroller = new TextEditingController();
-  TextEditingController passwordcontroller= new TextEditingController();
+  TextEditingController mailcontroller =  TextEditingController();
+  TextEditingController passwordcontroller=  TextEditingController();
 
   Future<void> login() async{//metodo para la validacion de usuarios 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: mailcontroller.text, password: passwordcontroller.text,);
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>   HomeScreen()),);
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>   const HomeScreen()),);
     }on FirebaseAuthException catch (e){
-      print(e.code);
-      print(e.message);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error al iniciar sesion: ${e.message}")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error login in, verify your data")));
     }
   }
 

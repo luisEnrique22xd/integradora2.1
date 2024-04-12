@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:integradora2_1/screens/add_container_screen.dart';
 import 'package:integradora2_1/screens/comments_screen.dart';
 import 'package:integradora2_1/screens/details_container_screen.dart';
-import 'package:integradora2_1/screens/details_container_screen.dart';
 import 'package:integradora2_1/screens/login_screen.dart';
-import 'package:integradora2_1/screens/profile_screen.dart';
 import 'package:integradora2_1/screens/reports_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,16 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void openScreen(int index, BuildContext context) {
     switch (index) {
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>  const HomeScreen()));
         break;
       case 1:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsScreen()));
-        break;
-      case 2:
         Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportsScreen()));
         break;
-      case 3:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsScreen()));
         break;
     }
   }
@@ -44,10 +39,11 @@ class _HomeScreenState extends State<HomeScreen> {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Water Care'),
+        title: const Text('Water Care',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
         actions: [
           IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
         ],
+        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('contenedores').snapshots(),
@@ -63,20 +59,20 @@ class _HomeScreenState extends State<HomeScreen> {
       return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-               Row(
+               const Row(
                 children: [
                    Image(
                     image: AssetImage('assets/img/logoWC.png'),
                     width: 349.5,
-                    height: 120,
+                    height: 200,
                   ),
                    SizedBox(width: 10.5),
                 ],
               ),
-              Text('Logged in as:'+ user.email!), 
+              Text('Logged in as:'+ user.email!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),), 
               const Divider(),
               const Text(
-                'Container`s list :',
+                'Container s list :',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
               ),
               const SizedBox(height:5.0),
@@ -89,16 +85,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   return ListTile(
                     title: Text(contenedor['name'] != null ? "Name: " + contenedor['name'] : ''),
                     subtitle: Text(contenedor['capacity'] != null ? "Capacity: " + contenedor['capacity'].toString()+"Lts.": ''),
-                    trailing: IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child: const Icon(Icons.arrow_forward_ios),),
-                    leading: IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child: const Icon(Icons.water_damage_outlined)),
+                    trailing: const  IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child:  Icon(Icons.arrow_forward_ios),),
+                    leading: const IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child:  Icon(Icons.water_damage_outlined)),
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsContainer()), );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  const DetailsContainer()), );
                     },
                   );
                 },
                 )
                 ),
-              Divider(),
+              const Divider(),
               Column(
                     children: [
                       GestureDetector(
@@ -119,21 +115,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
+                 const SizedBox(height: 5,)
             ],
           );
         }
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0, // Set initial selected index (optional)
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         unselectedItemColor: Colors.blue[100],
         selectedItemColor: Colors.blue,
         onTap: (index) => openScreen(index, context),
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: true  ,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.comment), label: "Comments"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home",),
           BottomNavigationBarItem(icon: Icon(Icons.picture_as_pdf), label: "Reports"),
-          BottomNavigationBarItem(icon: Icon(Icons.person_sharp), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.person_pin_rounded), label: "Profile/Comments"),
         ],
       ),
     );

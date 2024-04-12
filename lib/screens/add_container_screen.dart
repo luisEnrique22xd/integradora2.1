@@ -1,10 +1,5 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:integradora2_1/components/buttoncontainer.dart';
 import 'package:integradora2_1/components/text_fields_options.dart';
 import 'package:integradora2_1/screens/home_screen.dart';
 
@@ -49,7 +44,7 @@ class _AddContainerState extends State<AddContainer> {
               },
           )
           ),),
-          SizedBox(height: 15,),
+          const SizedBox(height: 15,),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
               child: TextField(
@@ -107,7 +102,7 @@ class _AddContainerState extends State<AddContainer> {
             conditionController.text.isEmpty ||
             brandController.text.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Por favor, rellena todos los campos.'),
             ),
           );
@@ -131,7 +126,7 @@ class _AddContainerState extends State<AddContainer> {
           await FirebaseFirestore.instance.collection('contenedores').add(contenedor);
           // Mostrar mensaje de éxito (opcional)
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Contenedor añadido correctamente!'),
             ),
           );
@@ -148,7 +143,7 @@ class _AddContainerState extends State<AddContainer> {
           // Manejar otras excepciones (por ejemplo, errores de red)
           print(e.toString());
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Se ha producido un error. Inténtalo de nuevo.'),
             ),
           );
@@ -164,7 +159,7 @@ class _AddContainerState extends State<AddContainer> {
         // 4. Navegar a la pantalla de inicio (opcional)
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       },
       child: Container(

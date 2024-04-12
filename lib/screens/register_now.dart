@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:integradora2_1/screens/home_screen.dart';
 import 'package:integradora2_1/screens/login_screen.dart';
 
 class RegisterNow extends StatefulWidget {
@@ -110,7 +109,7 @@ class _RegisterNowState extends State<RegisterNow> {
                 ),
               ),
               ),
-              SizedBox(height: 15.0,),
+              const SizedBox(height: 15.0,),
               Container(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
               child: TextFormField(
@@ -131,7 +130,7 @@ class _RegisterNowState extends State<RegisterNow> {
                 ),
               ),
               ),
-              SizedBox(height: 5.0),
+              const SizedBox(height: 5.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -149,13 +148,13 @@ class _RegisterNowState extends State<RegisterNow> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) =>  LoginScreen()),
+                            MaterialPageRoute(builder: (context) => const LoginScreen()),
                           );
                         },
                       ),
                 ],
               ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               GestureDetector(
                   onTap: registration,
                   child: Container(
