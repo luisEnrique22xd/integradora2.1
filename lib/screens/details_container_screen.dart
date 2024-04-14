@@ -47,26 +47,24 @@ class _DetailsContainerState extends State<DetailsContainer> {
               stream: _dataStream11,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  final String? dataString =
+                  final String dataString =
                       snapshot.data!.snapshot.value.toString();
-                  if (dataString != null) {
-                    double dataDouble = double.parse(dataString);
-                    String percentageString = '';
-                    if (dataDouble >= 0 && dataDouble <= 1000) {
-                      percentageString = dataDouble <= 1000 ? '${(dataDouble / 10).toStringAsFixed(2)}%' : 'N/A%';
-                    } else if(dataDouble > 1000) {
-                      percentageString = 'N/A';
-                    }else if(dataDouble<0){
-                      percentageString = "N/A";
-                    }
-                    return Center(
-                      child: CustomPaint(
-                        size: const Size(400, 400),
-                        painter: MyPainter(percentageString),
-                      ),
-                    );
+                  double dataDouble = double.parse(dataString);
+                  String percentageString = '';
+                  if (dataDouble >= 0 && dataDouble <= 1000) {
+                    percentageString = dataDouble <= 1000 ? '${(dataDouble / 10).toStringAsFixed(2)}%' : 'N/A%';
+                  } else if(dataDouble > 1000) {
+                    percentageString = 'N/A';
+                  }else if(dataDouble<0){
+                    percentageString = "N/A";
                   }
-                } else if (snapshot.hasError) {
+                  return Center(
+                    child: CustomPaint(
+                      size: const Size(400, 400),
+                      painter: MyPainter(percentageString),
+                    ),
+                  );
+                                } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 }
                 return const Center(child: CircularProgressIndicator());
@@ -86,7 +84,7 @@ class _DetailsContainerState extends State<DetailsContainer> {
                 if (snapshot.hasData) {
                   final String data1 =
                       snapshot.data!.snapshot.value.toString();
-                  return Column(
+                  return const Column(
                     children: [
                       Text(
                         ""
@@ -103,7 +101,7 @@ class _DetailsContainerState extends State<DetailsContainer> {
            Positioned(
               top: 410,
               right: 100,
-              child: Container(
+              child: SizedBox(
                 width: 150,
                 height: 150,
                 child: StreamBuilder<DatabaseEvent>(
@@ -144,9 +142,8 @@ class _DetailsContainerState extends State<DetailsContainer> {
                               annotations: <GaugeAnnotation>[
                                 GaugeAnnotation(
                                   widget: Container(
-                                    child:  Text("\n\n"+
-                                      data2,
-                                      style: TextStyle(
+                                    child:  Text("\n\n$data2",
+                                      style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -181,7 +178,7 @@ class _DetailsContainerState extends State<DetailsContainer> {
                       snapshot.data!.snapshot.value.toString();
                   return Column(
                     children: [
-                      Text("NTU: "+data2 ?? '', style: const TextStyle(fontSize: 18)),
+                      Text("NTU: $data2" ?? '', style: const TextStyle(fontSize: 18)),
                     ],
                   );
                 } else if (snapshot.hasError) {
@@ -236,6 +233,7 @@ class MyPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+   
     const p1 = Offset(120, 20);
     const p2 = Offset(240, 20);
     final paint1 = Paint()

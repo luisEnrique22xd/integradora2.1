@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Image(
-            image: AssetImage('assets/img/logoWC.png'),
+            image: AssetImage('assets/images/logoWC.png'),
             width: 300,
             height: 300,
           ),

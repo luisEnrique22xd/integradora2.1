@@ -62,13 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
                const Row(
                 children: [
                    Image(
-                    image: AssetImage('assets/img/logoWC.png'),
+                    image: AssetImage('assets/images/logoWC.png'),
                     width: 349.5,
-                    height: 200,
+                    height: 140,
                   ),
                    SizedBox(width: 10.5),
                 ],
               ),
+              const SizedBox(height: 15.0,),
               Text('Logged in as:${user.email!}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),), 
               const Divider(),
               const Text(

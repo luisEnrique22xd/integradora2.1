@@ -26,7 +26,7 @@ class _AddContainerState extends State<AddContainer> {
         child:  Column(
         children: [
            const Image(
-                image: AssetImage('assets/img/logoWC.png'),
+                image: AssetImage('assets/images/logoWC.png'),
                 width: 200,//logo5
                 height: 200,
                 ),

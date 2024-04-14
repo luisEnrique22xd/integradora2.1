@@ -40,7 +40,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
       body:  Column(
         children: [
           const Image(
-                    image: AssetImage('assets/img/logoWC.png'),
+                    image: AssetImage('assets/images/logoWC.png'),
                     width: 100,//logo5
                     height: 120,
                     ),

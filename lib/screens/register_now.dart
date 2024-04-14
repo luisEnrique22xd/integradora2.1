@@ -49,7 +49,7 @@ class _RegisterNowState extends State<RegisterNow> {
                 width: 200.0,
                 child:
                  Image(
-                  image: AssetImage('assets/img/logoWC.png')//logo
+                  image: AssetImage('assets/images/logoWC.png')//logo
                   )
               ),
               const Text("Welcome to Water Care ",
