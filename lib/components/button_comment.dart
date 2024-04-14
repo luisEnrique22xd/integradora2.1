@@ -24,7 +24,7 @@ final TextEditingController  commentcontroller = TextEditingController();
         print(commentcontroller.text);
         if (commentcontroller.text.isEmpty){
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Llena todos los campos'),
             ),
           );
@@ -41,7 +41,7 @@ final TextEditingController  commentcontroller = TextEditingController();
           await FirebaseFirestore.instance.collection('comentarios').add(comentarios);
           // Mostrar mensaje de éxito (opcional)
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Comentario enviado correctamente!'),
             ),
           );
@@ -58,7 +58,7 @@ final TextEditingController  commentcontroller = TextEditingController();
           // Manejar otras excepciones (por ejemplo, errores de red)
           print(e.toString());
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Se ha producido un error. Inténtalo de nuevo.'),
             ),
           );
@@ -69,7 +69,7 @@ final TextEditingController  commentcontroller = TextEditingController();
         }
 
         // 4. Navegar a la pantalla de inicio (opcional)
-       Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeScreen()),
+       Navigator.push(context, MaterialPageRoute(builder: (context) =>  const HomeScreen()),
                 );
       },
       child: Container(

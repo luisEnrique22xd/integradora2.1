@@ -34,7 +34,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Comentarios', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+        title: const Text('Comments', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
         automaticallyImplyLeading: false,
       ),
       body:  Column(
@@ -44,11 +44,11 @@ class _CommentsScreenState extends State<CommentsScreen> {
                     width: 100,//logo5
                     height: 120,
                     ),
-          Text('Send you comments!',
+          const Text('Send you comments!',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-          SizedBox(height: 15,),
-          Text('Usuario: '+ user.email!, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
-          SizedBox(height: 15,),
+          const SizedBox(height: 15,),
+          Text('User: ${user.email!}', style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+          const SizedBox(height: 15,),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
               child: TextField(
@@ -66,17 +66,17 @@ class _CommentsScreenState extends State<CommentsScreen> {
                     ),
                     fillColor: Colors.blue[100],
                     filled: true,
-                    hintText: "Comment",
+                    hintText: "Type your comment here",
                 ),
               ),
             ),
-          SizedBox(height: 15.0),
+          const SizedBox(height: 15.0),
           GestureDetector(
             onTap: () async {
               print(commentcontroller);
               if (commentcontroller.text.isEmpty){
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Llena todos los campos'),
             ),
           );
@@ -93,7 +93,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           await FirebaseFirestore.instance.collection('comentarios').add(comentarios);
           // Mostrar mensaje de éxito (opcional)
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Comentario enviado correctamente!'),
             ),
           );
@@ -110,7 +110,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           // Manejar otras excepciones (por ejemplo, errores de red)
           print(e.toString());
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Se ha producido un error. Inténtalo de nuevo.'),
             ),
           );
@@ -121,7 +121,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
         }
 
         // 4. Navegar a la pantalla de inicio (opcional)
-       Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeScreen()),
+       Navigator.push(context, MaterialPageRoute(builder: (context) =>  const HomeScreen()),
                 );
       },
       child: Container(

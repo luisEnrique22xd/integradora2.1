@@ -16,6 +16,8 @@ dependencies:
   flutter_dropdown: ^1.0.1+hotfix.1
   gauges: ^1.0.0
   google_fonts: 6.1.0
+  path_provider: ^2.1.3
+  pdf: ^3.10.8
   syncfusion_flutter_gauges: ^25.1.39
   
 

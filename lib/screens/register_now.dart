@@ -18,18 +18,18 @@ class _RegisterNowState extends State<RegisterNow> {
       final UserCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailcontroller.text, password: passwordcontroller.text);
     }on FirebaseAuthException catch(e){
       if (passwordcontroller.text != password2controller.text){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Las contraseñas no coninciden")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Las contraseñas no coninciden")));
       }else if(e.code == 'weak-password'){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Las contraseña es demaciado debil")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Las contraseña es demaciado debil")));
       }else if(e.code == 'email-already-in-use'){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Correo ya existente")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Correo ya existente")));
       }else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Ha ocurrido un error al intentar registrase. Intentelo de nuevo, si el error persiste contactenos")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Ha ocurrido un error al intentar registrase. Intentelo de nuevo, si el error persiste contactenos")));
       }
     }
     Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
         );
   }
 

@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                    SizedBox(width: 10.5),
                 ],
               ),
-              Text('Logged in as:'+ user.email!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),), 
+              Text('Logged in as:${user.email!}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),), 
               const Divider(),
               const Text(
                 'Container s list :',
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   final contenedor = docs[index].data() as Map<String, dynamic>;
                   return ListTile(
                     title: Text(contenedor['name'] != null ? "Name: " + contenedor['name'] : ''),
-                    subtitle: Text(contenedor['capacity'] != null ? "Capacity: " + contenedor['capacity'].toString()+"Lts.": ''),
+                    subtitle: Text(contenedor['capacity'] != null ? "Capacity: ${contenedor['capacity']}Lts.": ''),
                     trailing: const  IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child:  Icon(Icons.arrow_forward_ios),),
                     leading: const IconTheme(data: IconThemeData(color: Colors.blue, size: 24), child:  Icon(Icons.water_damage_outlined)),
                     onTap: (){

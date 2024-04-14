@@ -21,8 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: mailcontroller.text, password: passwordcontroller.text,);
       Navigator.push(context, MaterialPageRoute(builder: (context) =>   const HomeScreen()),);
-    }on FirebaseAuthException catch (e){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error login in, verify your data")));
+    }on FirebaseAuthException {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Error login in, verify your data")));
     }
   }
 

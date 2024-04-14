@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:integradora2_1/components/button_report.dart';
 import 'package:integradora2_1/screens/comments_screen.dart';
 import 'package:integradora2_1/screens/home_screen.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';  
+import 'package:pdf/widgets.dart'as pw;
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -42,7 +45,33 @@ class _ReportsScreenState extends State<ReportsScreen> {
           ),),
           const Divider(),
           const SizedBox(height: 15.0,),
-          const MybuttonReport(onTap: null),
+           MybuttonReport(onTap:() {
+                Future<void> generatePDF() async {
+  // Crea el documento PDF
+  final pdf = pw.Document();
+
+  // Añade una página al PDF
+  pdf.addPage(
+    pw.Page(
+      build: (pw.Context context) {
+        // Contenido de la página
+        return pw.Center(
+          child: pw.Text('Hola, este es un PDF generado desde Flutter.'),
+        );
+      },
+    ),
+  );
+
+  // Guarda el PDF en el dispositivo
+  final output = await getExternalStorageDirectory();
+  final file = File('cd/example.pdf');
+  await file.writeAsBytes(await pdf.save());
+
+  print('PDF generado en: ${file.path}');
+}
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>   const HomeScreen()),
+                );
+                },),
           const SizedBox(height: 15,),
           const Text('Reports List', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
           const SizedBox(height: 15,),
