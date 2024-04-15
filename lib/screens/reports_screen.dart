@@ -53,7 +53,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
       ),
     );
                          
-    final Uint8List imageData = File('assets/img/logoWC.png').readAsBytesSync(); //ruta del logo 
+    final Uint8List imageData = File('assets/images/cant.png').readAsBytesSync(); //ruta del logo 
     final PdfBitmap image = PdfBitmap(imageData);
 
     //"SMICCAT"
@@ -110,7 +110,7 @@ page.graphics.drawRectangle(
   brush: PdfSolidBrush(PdfColor(255, 255, 255)), // Color blanco
 );
 
- final Uint8List imageDat = File('assets/img/caliL.png').readAsBytesSync(); //ruta del logo 
+ final Uint8List imageDat = File('assets/images/caliL.png').readAsBytesSync(); //ruta del logo 
     final PdfBitmap imag = PdfBitmap(imageDat);
 
     page.graphics.drawImage(
@@ -122,7 +122,7 @@ page.graphics.drawRectangle(
     150,
   ),
 );
-final Uint8List imageCantData = File('assets/img/cant.png').readAsBytesSync(); // Ruta de la imagen "cant.png"
+final Uint8List imageCantData = File('assets/images/cant.png').readAsBytesSync(); // Ruta de la imagen "cant.png"
 final PdfBitmap imageCant = PdfBitmap(imageCantData);
 
 // Calcular las coordenadas X e Y para la imagen en el lado izquierdo
@@ -289,7 +289,7 @@ page.graphics.drawString(
 );
 
 
-final Uint8List imageBelowTextData = File('assets/img/logo.png').readAsBytesSync(); // Ruta de la imagen
+final Uint8List imageBelowTextData = File('assets/images/logo.png').readAsBytesSync(); // Ruta de la imagen
 final PdfBitmap imageBelowText = PdfBitmap(imageBelowTextData);
 
 // Calcular las coordenadas X e Y para la imagen debajo de los textos
