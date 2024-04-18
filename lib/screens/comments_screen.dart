@@ -48,6 +48,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
           const SizedBox(height: 15,),
           Text('User: ${user.email!}', style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+          Divider(),
           const SizedBox(height: 15,),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
@@ -77,7 +78,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
               if (commentcontroller.text.isEmpty){
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Llena todos los campos'),
+              content: Text('Fill all the blacks'),
             ),
           );
           return ;
@@ -94,7 +95,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           // Mostrar mensaje de éxito (opcional)
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Comentario enviado correctamente!'),
+              content: Text('Comment sent succesfuly!'),
             ),
           );
         } on FirebaseException catch (e) {
@@ -103,7 +104,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           print(e.message);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Error al enviar tu comentario: ${e.message}'),
+              content: Text('Error submitting your comment: ${e.message}'),
             ),
           );
         } catch (e) {
@@ -111,7 +112,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           print(e.toString());
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Se ha producido un error. Inténtalo de nuevo.'),
+              content: Text('Se ha producido un error. Inténtalo de nuevo .'),
             ),
           );
         } finally {
@@ -136,7 +137,9 @@ class _CommentsScreenState extends State<CommentsScreen> {
           ),
       ),
       ),
+      
         ],
+        
       ),
        bottomNavigationBar: BottomNavigationBar(
         currentIndex: 2, // Set initial selected index (optional)

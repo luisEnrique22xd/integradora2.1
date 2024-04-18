@@ -103,7 +103,7 @@ class _AddContainerState extends State<AddContainer> {
             brandController.text.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Por favor, rellena todos los campos.'),
+              content: Text('Please. Fill all the blanks.'),
             ),
           );
           return; // Prevenir la ejecución posterior si la validación falla
@@ -127,7 +127,7 @@ class _AddContainerState extends State<AddContainer> {
           // Mostrar mensaje de éxito (opcional)
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Contenedor añadido correctamente!'),
+              content: Text('Container added succesfully!'),
             ),
           );
         } on FirebaseException catch (e) {
@@ -136,7 +136,7 @@ class _AddContainerState extends State<AddContainer> {
           print(e.message);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Error al añadir contenedor: ${e.message}'),
+              content: Text('Error adding your container: ${e.message}'),
             ),
           );
         } catch (e) {

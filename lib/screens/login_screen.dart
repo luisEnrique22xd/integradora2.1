@@ -36,11 +36,13 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 100,),
           const Image(
             image: AssetImage('assets/images/logoWC.png'),
-            width: 300,
-            height: 300,
+            width: 200,
+            height: 200,
           ),
+          space(),
           space(),
           const Text(
             'Welcome back to WaterCare',
@@ -106,17 +108,25 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(height: 10),
 
           // Forgot password?
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Forgot password?',
-                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
+          GestureDetector(
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    'Forgot password?',
+                    style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w500, decoration: TextDecoration.underline,),
+                    
+                  ),
+                ],
+              ),
+            ),onTap: (){
+              Future<void> sendPasswordResetEmail(String email) async {
+              final FirebaseAuth auth = FirebaseAuth.instance;
+              await auth.sendPasswordResetEmail(email: 'luiskike2210@gmail.com');
+}
+            },
           ),
           const SizedBox(height: 15),
 

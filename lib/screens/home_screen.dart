@@ -17,7 +17,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
  final user = FirebaseAuth.instance.currentUser!;
   void signUserOut() {
-    FirebaseAuth.instance.signOut();
+    FirebaseAuth.instance.signOut().then((_) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()),);
+    });
+
     Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()),);
   }
   
@@ -41,7 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Water Care',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
         actions: [
-          IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
+          IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout)), 
+          
         ],
         automaticallyImplyLeading: false,
       ),
@@ -70,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               const SizedBox(height: 15.0,),
-              Text('Logged in as:${user.email!}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),), 
+              Text('Logged in as: ${user.email!}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),), 
               const Divider(),
               const Text(
                 'Container s list :',

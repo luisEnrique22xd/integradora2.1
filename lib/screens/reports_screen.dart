@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';  
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:open_file/open_file.dart';
-import 'dart:typed_data';
+
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -31,11 +31,12 @@ class _ReportsScreenState extends State<ReportsScreen> {
         break;
     }
   }
-  Future _generatePDF() async {
+  Future<void> _generatePDF() async {
     final PdfDocument document = PdfDocument();
     final PdfPage page = document.pages.add();
     final Size pageSize = page.getClientSize();
 
+    // Dibujar un rectángulo blanco en toda la página
     page.graphics.drawRectangle(
       bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height),
       pen: PdfPen(PdfColor(0, 83, 136)), //  borde
@@ -52,22 +53,6 @@ class _ReportsScreenState extends State<ReportsScreen> {
         lineAlignment: PdfVerticalAlignment.middle,
       ),
     );
-                         
-    final Uint8List imageData = File('assets/images/cant.png').readAsBytesSync(); //ruta del logo 
-    final PdfBitmap image = PdfBitmap(imageData);
-
-    //"SMICCAT"
-    page.graphics.drawImage(
-  image,
-  Rect.fromLTWH(
-    (pageSize.width - 200) / 2, // Centrado horizontalmente
-    (pageSize.height - 600) / 2, // Centrado verticalmente
-    190,
-    210,
-  ),
-);
-
-
 
 const double spaceBetweenSections = 20; // Espacio entre las dos secciones
 const double rectWidth = 500; // Ancho total del rectángulo
@@ -85,6 +70,8 @@ page.graphics.drawRectangle(
   pen: PdfPen(PdfColor(0, 83, 136), width: 2), // Borde azul fuerte
 );
 
+
+
 page.graphics.drawRectangle(
   bounds: Rect.fromLTWH(
     (pageSize.width - rectWidth) / 2 + sectionWidth + spaceBetweenSections, // Centrado horizontalmente con espacio
@@ -92,9 +79,12 @@ page.graphics.drawRectangle(
     sectionWidth, // Ancho de la segunda sección
     rectHeight, // Alto del rectángulo
   ),
-  brush: PdfSolidBrush(PdfColor(207, 231, 255)), // Color blanco
+  brush: PdfSolidBrush(PdfColor(207, 231, 255)), // Color blanco PdfColor(207, 469,755)
   pen: PdfPen(PdfColor(0, 83, 136), width: 2), // Borde azul fuerte
 );
+
+
+
 const double whiteRectWidth = 150; // Ancho del nuevo rectángulo blanco
 const double whiteRectHeight = 150; // Alto del nuevo rectángulo blanco
 final double whiteRectX = (pageSize.width - rectWidth) / 2 + (sectionWidth - whiteRectWidth) / 2; // Posición X del nuevo rectángulo blanco
@@ -110,37 +100,6 @@ page.graphics.drawRectangle(
   brush: PdfSolidBrush(PdfColor(255, 255, 255)), // Color blanco
 );
 
- final Uint8List imageDat = File('assets/images/caliL.png').readAsBytesSync(); //ruta del logo 
-    final PdfBitmap imag = PdfBitmap(imageDat);
-
-    page.graphics.drawImage(
-  imag,
-  Rect.fromLTWH(
-    (pageSize.width - 200) , // Centrado horizontalmente
-    (pageSize.height - 450) , // Centrado verticalmente
-    150,
-    150,
-  ),
-);
-final Uint8List imageCantData = File('assets/images/cant.png').readAsBytesSync(); // Ruta de la imagen "cant.png"
-final PdfBitmap imageCant = PdfBitmap(imageCantData);
-
-// Calcular las coordenadas X e Y para la imagen en el lado izquierdo
-final double imageCantX = (pageSize.width - rectWidth) / 2 + (sectionWidth - whiteRectWidth) / 2; // Posición X de la imagen "cant.png"
-final double imageCantY = ((pageSize.height - 720) / 2) + 220 + (rectHeight - whiteRectHeight) / 2; // Posición Y de la imagen "cant.png"
-
-// rectangulos
-page.graphics.drawImage(
-  imageCant,
-  Rect.fromLTWH(
-    imageCantX, // Posición X de la imagen "cant.png"
-    imageCantY, // Posición Y de la imagen "cant.png"
-    150,
-    150,
-  ),
-);
-
-// Agregar un texto debajo del rectángulo blanco en el lado izquierdo
 const String textBelowRectangle2 = '25%';
 const String textBelowRectangle3 = 'Información sobre la cantidad de agua consumida durante el mes.';
 
@@ -182,15 +141,27 @@ page.graphics.drawString(
   ),
 );
 
+const double whiteRect = 150; // Ancho del nuevo rectángulo blanco
+const double whiteRectH = 150; // Alto del nuevo rectángulo blanco
+final double whiteRectX2 = 315; // Posición X del nuevo rectángulo blanco
+final double whiteRectY2= 320; // Posición Y del nuevo rectángulo blanco
 
+page.graphics.drawRectangle(
+  bounds: Rect.fromLTWH(
+    whiteRectX2, // Posición X del nuevo rectángulo blanco
+    whiteRectY2, // Posición Y del nuevo rectángulo blanco
+    whiteRect, // Ancho del nuevo rectángulo blanco
+    whiteRectH, // Alto del nuevo rectángulo blanco
+  ),
+  brush: PdfSolidBrush(PdfColor(255, 255, 255)), // Color blanco(207, 469,755)
+);
 
-// Agregar dos textos debajo de la imagen "cant.png" en el lado derecho
 const String textBelowImage1 = 'Media';
 const String textBelowImage2 = 'Información sobre la calidad de agua almacenada durante el mes.';
 
 // Calcular las coordenadas X e Y para los textos debajo de la imagen "cant.png"
 final double textX = (pageSize.width - rectWidth) / 2 + sectionWidth + spaceBetweenSections + (sectionWidth - whiteRectWidth) / 2; // Posición X de los textos
-final double texty1 = imageCantY + 155; // Posición Y del primer texto debajo de la imagen
+final double texty1 = ((pageSize.height - 720) / 2) + 220 + (rectHeight - whiteRectHeight) / 2+ 155; // Posición Y del primer texto debajo de la imagen
 final double texty2 = textY1 + 50; // Separación entre el primer y segundo texto debajo de la imagen
 
 // Texto debajo de la imagen 1
@@ -227,9 +198,9 @@ page.graphics.drawString(
   ),
 );
 
-const String textin1 = 'Copyright &copy; 2024 · Programers ZGL ';
+const String textin1 = 'Copyright  2024  Programers ZGL ';
 const String textin2 = '+52-380-963-97';
-const String textin3 = '¿Cualquier duda ? support@SMICCAT.com';
+const String textin3 = '¿ Cualquier duda ?  support@SMICCAT.com';
 
 
 final double txtX = (pageSize.width - rectWidth) / 2 + sectionWidth + spaceBetweenSections + (sectionWidth - whiteRectWidth) / 2; // Posición X de los textos
@@ -288,39 +259,146 @@ page.graphics.drawString(
   ),
 );
 
+// page.graphics.drawEllipse(
+//   Rect.fromLTWH(
+//     (pageSize.width - 100) / 2, // Posición X del círculo (centrado horizontalmente)
+//     ((pageSize.height - 600) / 2) + 400, // Posición Y del círculo (ajustar según tu diseño)
+//     100, // Ancho del círculo
+//     100, // Alto del círculo
+//   ),
+//   pen: PdfPen(PdfColor(0, 0, 0), width: 2), // Color y grosor del borde del círculo
+//   brush: PdfSolidBrush(PdfColor(255, 0, 0)), // Color de relleno del círculo
+// );
+final PdfPen pen = PdfPen(
+  PdfColor(0, 0, 0), // Color de la línea
+  width: 5, // Grosor de la línea
+);
 
-final Uint8List imageBelowTextData = File('assets/images/logo.png').readAsBytesSync(); // Ruta de la imagen
-final PdfBitmap imageBelowText = PdfBitmap(imageBelowTextData);
+// Dibujar líneas normales sin estilo específico
+page.graphics.drawLine(
+  pen,
+  Offset(200, 100), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(300, 100), // Punto final de la línea (coordenadas X e Y)
+);
 
-// Calcular las coordenadas X e Y para la imagen debajo de los textos
-final double imageBelowTextX = (pageSize.width - rectWidth) + 80; // Posición X de la imagen
-final double imageBelowTextY = txtY2-20; // Posición Y de la imagen (misma altura que los textos)
+page.graphics.drawLine(
+  pen,
+  Offset(300, 100), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(300, 120), // Punto final de la línea (coordenadas X e Y)
+);
 
-// Dibujar la imagen debajo de los textos
-page.graphics.drawImage(
-  imageBelowText,
+page.graphics.drawLine(
+  pen,
+  Offset(200, 120), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(240, 120), // Punto final de la línea (coordenadas X e Y)
+);
+
+page.graphics.drawLine(
+  pen,
+  Offset(200, 100), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(200, 120), // Punto final de la línea (coordenadas X e Y)
+);
+
+page.graphics.drawLine(
+  pen,
+  Offset(200, 120), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(165, 150), // Punto final de la línea (coordenadas X e Y)
+);
+
+page.graphics.drawLine(
+  pen,
+  Offset(300, 120), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(339, 150), // Punto final de la línea (coordenadas X e Y)
+);
+
+page.graphics.drawLine(
+  pen,
+  Offset(165, 150), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(165, 290), // Punto final de la línea (coordenadas X e Y)
+);
+
+page.graphics.drawLine(
+  pen,
+  Offset(339, 150), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(339, 290), // Punto final de la línea (coordenadas X e Y)
+);
+
+page.graphics.drawLine(
+  pen,
+  Offset(339, 150), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(270, 150), // Punto final de la línea (coordenadas X e Y)
+);
+
+page.graphics.drawLine(
+  pen,
+  Offset(165, 290), // Punto inicial de la línea (coordenadas X e Y)
+  Offset(339, 290), // Punto final de la línea (coordenadas X e Y)
+);
+//Esto****************************************************************************
+page.graphics.drawEllipse(
   Rect.fromLTWH(
-    imageBelowTextX, // Posición X de la imagen
-    imageBelowTextY, // Posición Y de la imagen (misma altura que los textos)
-    80, // Ancho de la imagen
-    80, // Alto de la imagen
+    (pageSize.width - rectWidth) / 2 + 30 + (sectionWidth - whiteRectWidth) / 2, // Posición X del círculo (centrado horizontalmente)
+    ((pageSize.height - 720) / 2) + 240 + (rectHeight - whiteRectHeight) / 2, // Posición Y del círculo (ajustar según tu diseño)
+    100, // Ancho del círculo
+    100, // Alto del círculo
   ),
+  pen: PdfPen(PdfColor(0, 83, 136), width: 40), // Color y grosor del borde del círculo (0, 83, 136), width: 2
+  brush: PdfSolidBrush(PdfColor(255, 255, 255)), // Color de relleno del círculo
 );
 
 
+const double ancho = 120; // Ancho del nuevo rectángulo blanco
+const double alto = 30; // Alto del nuevo rectángulo blanco
+final double rectX = 330; // Posición X del nuevo rectángulo blanco
+final double rectY = 420; // Posición Y del nuevo rectángulo blanco
+
+page.graphics.drawRectangle(
+  bounds: Rect.fromLTWH(
+    rectX, // Posición X del nuevo rectángulo blanco
+    rectY, // Posición Y del nuevo rectángulo blanco
+    ancho, // Ancho del nuevo rectángulo blanco
+    alto, // Alto del nuevo rectángulo blanco
+  ),
+  brush: PdfSolidBrush(PdfColor(255, 0, 0)), // Color  rojo
+);
+
+page.graphics.drawRectangle(
+  bounds: Rect.fromLTWH(
+    rectX, // Posición X del nuevo rectángulo blanco
+    rectY-40, // Posición Y del nuevo rectángulo blanco
+    ancho, // Ancho del nuevo rectángulo blanco
+    alto, // Alto del nuevo rectángulo blanco
+  ),
+  brush: PdfSolidBrush(PdfColor(255, 255, 0)), // Color amarillo
+);
+
+page.graphics.drawRectangle(
+  bounds: Rect.fromLTWH(
+    rectX, // Posición X del nuevo rectángulo blanco
+    rectY-80, // Posición Y del nuevo rectángulo blanco
+    ancho, // Ancho del nuevo rectángulo blanco
+    alto, // Alto del nuevo rectángulo blanco
+  ),
+  brush: PdfSolidBrush(PdfColor(0, 128, 0)), // Color verde
+);
+
+
+    // Obtener la ruta del directorio de descargas
+    final Directory? downloadsDirectory = await getDownloadsDirectory();
+    if (downloadsDirectory == null) {
+      // Manejar el caso en el que no se pueda obtener el directorio de descargas
+      print('Error: No se pudo obtener el directorio de descargas.');
+      return;
+    }
+    final String downloadsPath = downloadsDirectory.path;
+
+    // Guardar el PDF en la carpeta de descargas
+    final File file = File('$downloadsPath/Reporte_Water_Care.pdf');
     final List<int> bytes = await document.save();
-    document.dispose();
-
-    final Directory directory = await getApplicationDocumentsDirectory();
-    final String documentPath = directory.path;
-
-    final File file = File('$documentPath/reporte_WaterCare.pdf');
     await file.writeAsBytes(bytes);
 
-    // Espera unos segundos antes de abrir el archivo
-    Timer(const Duration(seconds: 2), () {
-      OpenFile.open('$documentPath/reporte_WaterCare.pdf');
-    });
+    // Abrir el PDF después de guardarlo
+    OpenFile.open('$downloadsPath/Reporte_Water_Care.pdf');
   }
 
   @override
@@ -340,7 +418,9 @@ page.graphics.drawImage(
           const Divider(),
           const SizedBox(height: 15.0,),
           GestureDetector(
-            onTap: _generatePDF,
+            onTap:(){
+              _generatePDF();
+            },
             child: Container(
                     padding: const EdgeInsets.all(15),//tamaño del boton vertical
                     margin: const EdgeInsets.symmetric(horizontal: 110),//tamaño del boton horizontal

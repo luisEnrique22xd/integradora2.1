@@ -43,6 +43,7 @@ class _RegisterNowState extends State<RegisterNow> {
           
           child: Column(
             children: [
+              SizedBox(height: 50,),
               const SizedBox(
                 //img size
                 height: 250.0,
@@ -52,6 +53,7 @@ class _RegisterNowState extends State<RegisterNow> {
                   image: AssetImage('assets/images/logoWC.png')//logo
                   )
               ),
+              SizedBox(height: 15,),
               const Text("Welcome to Water Care ",
               style: TextStyle(fontSize: 18.0,
               fontWeight: FontWeight.bold,

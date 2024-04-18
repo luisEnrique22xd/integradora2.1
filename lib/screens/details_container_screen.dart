@@ -29,6 +29,18 @@ class _DetailsContainerState extends State<DetailsContainer> {
     _dataStream22 = ref2.onValue;
   }
 
+  bool _isSwitchOn = false;
+  void _handleSwitchChange(bool value){
+    setState(() {
+      _isSwitchOn = value;
+      print(_isSwitchOn);
+
+      final database = FirebaseDatabase.instance;
+      final switchRef = database.ref().child('microbomba');
+      switchRef.set(value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,32 +204,45 @@ class _DetailsContainerState extends State<DetailsContainer> {
             top: 620,
             right: 0,
             child: Container(
-              child: Center(
-                child: GestureDetector(
-                  onTap: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(15),
-                    margin: const EdgeInsets.symmetric(horizontal: 120),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Delete container',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Text('Activar bomba: '),
+                      Switch(value: _isSwitchOn, onChanged: _handleSwitchChange),
+                    ],
+                  ),
+                  SizedBox(width: 20),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomeScreen()),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(15),
+                        margin: const EdgeInsets.symmetric(horizontal: 30),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Delete container',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  
+                  SizedBox(width: 5,),
+                ],
               ),
             ),
           ),
